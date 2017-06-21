@@ -1,3 +1,20 @@
+<!--
+	mvn-flyway-cloudsql-test is an example of how to set up a Maven/Flyway/Google CloudSQL integration.
+    Copyright (C) 2017  Christopher R. Reyes
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -15,11 +32,43 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>6.0.6</version>
+		<scope>compile</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.google.appengine</groupId>
+		<artifactId>appengine-api-1.0-sdk</artifactId>
+		<version>1.9.54</version>
+	</dependency>
+	<dependency>
+		<groupId>org.flywaydb</groupId>
+		<artifactId>flyway-core</artifactId>
+		<version>4.0</version>
+	</dependency>
   </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.0.2</version>
+				<configuration>
+					<!-- 
+						 Normally, I would specify these in a flyway.properties file. 
+						 Since I don't want to check in my actual instance address, username, and password to a public git repository, I'll do this instead.
+					-->
+					<url>jdbc:google:rdbms://${instance}:3306/hello_world?serverTimezone=UTC&amp;useSSL=true&amp;verifyServerCertificate=true&amp;requireSSL=true</url>
+					<user>${user}</user>
+					<password>${password}</password>
+					<driver>com.google.appengine.api.rdbms.AppEngineDriver</driver>
+				</configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
