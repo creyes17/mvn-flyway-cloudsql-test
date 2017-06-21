@@ -1,15 +1,15 @@
-insert into hello (greeting) values 
+insert into greeting (greeting) values 
 	('Hello'),
 	('Welcome'),
 	('Good day'),
 	('Hola'),
 	('Bonjour');
 
-insert into world (name) values
+insert into name (name) values
 	('World'),
 	('Alice'),
 	('Bob'),
 	('Mallory'),
 	('Internet');
 
-insert into hello_world (hello_id, world_id) select hello.id, world.id from hello, world;
+insert into greeting_name (greeting_id, name_id) select greeting.id, name.id from greeting, name;
