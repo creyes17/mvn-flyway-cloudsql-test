@@ -8,11 +8,13 @@ Then create a database called hello\_world.
 ## Usage:
 
 ```bash
-# $instance should be the IPv4 address if your Google CloudSQL Instance
-# You can find this on the Overview tab for your particular instance in the Google Cloud Platform console
-instance="1.1.1.1";
+# $instance should be the "Instance connection name" for your Google CloudSQL Instance.
+# You can find this on the Overview tab for your particular instance in the Google Cloud Platform console.
+instance="project:region:instance-name";
+
 # $user should be the username that you want to use to connect with $instance
 user="root";
+
 # $password should be the password for $user on $instance
 password="password";
 
